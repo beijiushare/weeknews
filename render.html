@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>渲染 Markdown</title>
+    <style>
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        margin: 0;
+        padding: 20px;
+        background-color: #f0f2f5;
+        color: #333;
+      }
+
+      h1 {
+        text-align: center;
+        color: #1a365d;
+        margin-bottom: 20px;
+        font-weight: 500;
+      }
+
+      #content {
+        background-color: white;
+        border-radius: 8px;
+        padding: 20px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08);
+      }
+
+      /* Markdown 样式 */
+      h1,
+      h2,
+      h3,
+      h4,
+      h5,
+      h6 {
+        color: #1a365d;
+      }
+
+      p {
+        line-height: 1.6;
+      }
+
+      ul,
+      ol {
+        padding-left: 20px;
+      }
+
+      code {
+        background-color: #f8f9fa;
+        padding: 2px 5px;
+        border-radius: 3px;
+        font-family: monospace;
+      }
+
+      pre {
+        background-color: #f8f9fa;
+        padding: 10px;
+        border-radius: 5px;
+        overflow-x: auto;
+        font-family: monospace;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <!-- 引入 MathJax 库 -->
+    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+  </head>
+  <body>
+    <h1>Markdown 内容</h1>
+    <div id="content"></div>
+
+    <script>
+      // 获取 URL 参数中的文件路径
+      const urlParams = new URLSearchParams(window.location.search);
+      const filePath = urlParams.get("file");
+
+      if (filePath) {
+        // 加载并渲染 Markdown 文件
+        fetch(filePath)
+          .then((response) => response.text())
+          .then((markdown) => {
+            const html = marked.parse(markdown);
+            document.getElementById("content").innerHTML = html;
+
+            // 使用 MathJax 渲染 LaTeX 公式
+            MathJax.typesetPromise([document.getElementById("content")]);
+          })
+          .catch((error) => {
+            console.error("加载 Markdown 文件时出错:", error);
+            document.getElementById("content").innerHTML =
+              "<p>加载 Markdown 文件时出错</p>";
+          });
+      } else {
+        document.getElementById("content").innerHTML =
+          "<p>未指定 Markdown 文件</p>";
+      }
+    </script>
+  </body>
+</html>
