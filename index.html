@@ -248,7 +248,7 @@
             li.innerHTML = `<span class="file-icon">📄</span>${key}`;
             li.addEventListener("click", () => {
               // 动态拼接路径并打开 Markdown 文件
-              const filePath = `./${currentPath.join("/")}/${data[key]}.md`;
+              const filePath = `./${currentPath.join("/")}/${data[key]}`;
               const renderUrl = `render.html?file=${encodeURIComponent(
                 filePath
               )}`;

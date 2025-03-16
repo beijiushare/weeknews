@@ -61,9 +61,7 @@
         font-family: monospace;
       }
     </style>
-    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <!-- 引入 MathJax 库 -->
-    <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js "></script>
   </head>
   <body>
     <h1>Markdown 内容</h1>
@@ -81,9 +79,6 @@
           .then((markdown) => {
             const html = marked.parse(markdown);
             document.getElementById("content").innerHTML = html;
-
-            // 使用 MathJax 渲染 LaTeX 公式
-            MathJax.typesetPromise([document.getElementById("content")]);
           })
           .catch((error) => {
             console.error("加载 Markdown 文件时出错:", error);
